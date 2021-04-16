@@ -1,0 +1,27 @@
+namespace BankApp.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class AddManyAccounts : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.UserAccounts",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(),
+                        AccountNumber = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+        }
+        
+        public override void Down()
+        {
+            DropTable("dbo.UserAccounts");
+        }
+    }
+}

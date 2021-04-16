@@ -1,0 +1,18 @@
+namespace BankApp.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class DeleteAccBalanceFromAccoountController : DbMigration
+    {
+        public override void Up()
+        {
+            DropColumn("dbo.AspNetUsers", "AccountBalance");
+        }
+        
+        public override void Down()
+        {
+            AddColumn("dbo.AspNetUsers", "AccountBalance", c => c.Long(nullable: false));
+        }
+    }
+}

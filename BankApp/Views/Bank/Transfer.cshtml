@@ -1,0 +1,57 @@
+﻿<div class="col">
+    <br />
+    <b> Select from which account you want to make a transfer</b>
+    <select class="form-control" id="number">
+        @for (int i = 0; i < 5; i++)
+        {
+            <option id="accnmb_@i"></option>
+        }
+    </select>
+
+        <b> Title: </b> <input id="title" class="form-control" /> <br />
+        <b> Name: </b><input id="name" class="form-control" /><br />
+        <b> Amount: </b><input id="amount" class="form-control" /><br />
+        <b> Account bank number: </b><input id="accNumber" class="form-control" /><br />
+        <br />
+    </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" onclick="SendTransfer();" class="btn btn-primary">Save changes</button>
+</div>
+
+
+<script>
+    var action = window.location.origin;
+
+    onload = function() {
+        console.log('Get acc number');
+        $.get(action + '/api/accNumber',
+            function (response) {
+                var howManyAcc = response.length;
+                $("#accnmb_0").text(response[0])
+                console.log(response);
+                console.log('ile kont? ' + howManyAcc);
+            });
+    }
+
+    function SendTransfer() {
+        console.log('SendTransfer');
+        var sendValue = {
+            UserAccountNumber: $("#number").val(),
+            Name: $("#name").val(),
+            Title: $("#title").val(),
+            Amount: $("#amount").val(),
+            AccountNumber: $("#accNumber").val()
+        };
+        $.ajax({
+            url: action + '/api/transfer',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function(data) {
+                //cos tam
+            },
+            data: JSON.stringify(sendValue)
+        });
+    }
+</script>

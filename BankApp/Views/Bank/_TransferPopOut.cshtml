@@ -1,0 +1,55 @@
+﻿<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Make a transfer
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New transfer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col">
+                <br />
+                <b> Title: </b> <input id="title" class="form-control" /> <br />
+                <b> Name: </b><input id="name" class="form-control" /><br />
+                <b> Amount: </b><input id="amount" class="form-control" /><br />
+                <b> Account bank number: </b><input id="accNumber" class="form-control" /><br />
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" onclick="SendTransfer();" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function SendTransfer() {
+        console.log('SendTransfer');
+
+        var action = window.location.origin;
+
+        var sendValue = {
+            Name: $("#name").val(),
+            Title: $("#title").val(),
+            Amount: $("#amount").val(),
+            AccountNumber: $("#accNumber").val()
+        }
+        var url = action;
+        $.ajax({
+            url: url + '/api/transfer',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                
+            },
+            data: JSON.stringify(sendValue)
+        });
+    }
+</script>
